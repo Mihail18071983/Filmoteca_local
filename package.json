@@ -1,0 +1,39 @@
+{
+  "name": "filmoteka",
+  "version": "2.0.0",
+  "description": "",
+  "homepage": " https://ViacheslavYUR.github.io/Filmoteka",
+  "scripts": {
+    "start": "parcel src/*.html",
+    "build": "parcel build src/*.html --public-url /Filmoteka",
+    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ViacheslavYUR/filmoteka.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/goitacademy/parcel-project-template/issues"
+  },
+  "dependencies": {
+    "axios": "^1.2.1",
+    "eslint-config-airbnb": "^18.2.1",
+    "gh-pages": "^4.0.0",
+    "modern-normalize": "^1.1.0",
+    "notiflix": "^3.2.5",
+    "vanilla-tilt": "^1.8.0"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.0",
+    "buffer": "^6.0.3",
+    "parcel": "^2.6.0",
+    "parcel-reporter-clean-dist": "^1.0.4",
+    "posthtml-include": "^1.7.4",
+    "tui-pagination": "^3.4.1"
+  },
+  "browserslist": "> 0.5%, last 2 versions, not dead"
+}
