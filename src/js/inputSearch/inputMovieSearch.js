@@ -2,8 +2,11 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import MovieApiService from './getAllMovieApi';
 import { galleryMarkupСreation } from '../showTrending/renderTrending';
 import { fetchGenres } from '../fetchGenres';
+import * as tuiPagination from '../pagination/pagination';
 
 const movieApiService = new MovieApiService();
+
+console.log(movieApiService.page)
 
 const refs = {
   searchMovie: document.querySelector('.searchForm'),
@@ -38,6 +41,15 @@ export async function handleInputSearchMovie(e) {
 
   const response = await movieApiService.getMovie();
   const results = response.results;
+  console.log(results.length);
+
+  tuiPagination.pagination.off('beforeMove', tuiPagination.loadMoreTrendingFilms);
+  tuiPagination.pagination.off('beforeMove', tuiPagination.loadMoreFilmsByQuery);
+  tuiPagination.pagination.on('beforeMove', tuiPagination.loadMoreFilmsByQuery);
+  tuiPagination.pagination.reset(movieApiService.totalResults);
+  
+  
+
   // console.log(movieApiService.request);
   const { genres } = await fetchGenres();
   // console.log(genres);

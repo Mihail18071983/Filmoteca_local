@@ -92,3 +92,7 @@ export const galleryMarkupСreation = (results, genres) => {
 };
 
 renderMarkup();
+
+import { qwePage } from '../pagination/pagination';
+
+console.log(qwePage)

@@ -5,10 +5,15 @@ import { Loading, Notify } from 'notiflix';
 import { fetchTrending } from '../showTrending/fetchTrending';
 import { fetchGenres } from '../fetchGenres';
 import * as render from '../showTrending/renderTrending';
+import MovieApiService from '../inputSearch/getAllMovieApi';
 
 const PER_PAGE = 20;
 
+const movieApiService = new MovieApiService();
+
 const gallery = document.querySelector('.gallery');
+
+export let qwePage=0;
 
 export const options = {
   totalItems: 0,
@@ -39,10 +44,15 @@ export const pagination = new Pagination(paginationCont, options);
 
 export const page = pagination.getCurrentPage();
 
+console.log('getCurrentPage',pagination.getCurrentPage())
+
 pagination.on('beforeMove', loadMoreTrendingFilms);
 
-async function loadMoreTrendingFilms(e) {
+export async function loadMoreTrendingFilms(e) {
   const currentPage = e.page;
+  qwePage=await e.page;
+  console.log('currentPage', currentPage)
+  Loading.hourglass();
   try {
     const { results, total_results, total_pages } = await fetchTrending(
       currentPage
@@ -53,14 +63,31 @@ async function loadMoreTrendingFilms(e) {
     const { genres } = await fetchGenres();
     // console.log('genres ', genres);
     if (total_results > 0) {
-      Loading.hourglass();
       gallery.innerHTML = await render.galleryMarkupСreation(results, genres);
-      Loading.remove();
       return;
     }
   } catch (err) {
     Notify.failure(err.message);
     pagination.classList.add('js-hidden');
+  } finally {
+    Loading.remove();
+    window.scroll(0,0)
   }
 }
 
+export async function loadMoreFilmsByQuery(e) {
+  const currentPage = e.page;
+  Loading.hourglass();
+  try {
+    const { results } = await movieApiService.getMovie();
+    console.log(results)
+    const { genres } = await fetchGenres();
+    gallery.innerHTML = await render.galleryMarkupСreation(results, genres);
+  } catch (err) {
+    Notify.failure(err.message);
+  }
+
+  finally {
+    Loading.remove();
+  }
+}
