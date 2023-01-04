@@ -5,11 +5,12 @@ import { Loading, Notify } from 'notiflix';
 import { fetchTrending } from '../showTrending/fetchTrending';
 import { fetchGenres } from '../fetchGenres';
 import * as render from '../showTrending/renderTrending';
-import MovieApiService from '../inputSearch/getAllMovieApi';
+// import MovieApiService from '../inputSearch/getAllMovieApi';
+import { movieApiService } from '../inputSearch/inputMovieSearch';
 
 const PER_PAGE = 20;
 
-const movieApiService = new MovieApiService();
+// const movieApiService = new MovieApiService();
 
 const gallery = document.querySelector('.gallery');
 
@@ -79,7 +80,7 @@ export async function loadMoreFilmsByQuery(e) {
   const currentPage = e.page;
   Loading.hourglass();
   try {
-    const { results } = await movieApiService.getMovie();
+    const { results } = await movieApiService.getMovie(currentPage);
     console.log(results)
     const { genres } = await fetchGenres();
     gallery.innerHTML = await render.galleryMarkupСreation(results, genres);

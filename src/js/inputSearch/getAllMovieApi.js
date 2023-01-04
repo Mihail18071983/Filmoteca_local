@@ -11,20 +11,20 @@ export default class MovieApiService {
     // this.perPage = 21;
   }
 
-  async getMovie() {
+  async getMovie(_page) {
     const { data } = await axios.get(
-      `${URL}search/movie?api_key=${API_KEY}&query=${this.userRequest}&page=${this.page}`
+      `${URL}search/movie?api_key=${API_KEY}&query=${this.userRequest}&page=${_page}`
     );
 
-    this.incrementPage();
+    // this.incrementPage();
 
     await this.getTotalRes(data);
     console.log(data);
     return data;
   }
-  incrementPage() {
-    this.page += 1;
-  }
+  // incrementPage() {
+  //   this.page += 1;
+  // }
 
   resetPage() {
     this.page = 1;

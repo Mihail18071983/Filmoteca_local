@@ -4,7 +4,7 @@ import { galleryMarkupСreation } from '../showTrending/renderTrending';
 import { fetchGenres } from '../fetchGenres';
 import * as tuiPagination from '../pagination/pagination';
 
-const movieApiService = new MovieApiService();
+export const movieApiService = new MovieApiService();
 
 console.log(movieApiService.page)
 
