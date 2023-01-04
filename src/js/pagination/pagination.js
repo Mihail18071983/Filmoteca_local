@@ -14,8 +14,6 @@ const PER_PAGE = 20;
 
 const gallery = document.querySelector('.gallery');
 
-export let qwePage=0;
-
 export const options = {
   totalItems: 0,
   itemsPerPage: PER_PAGE,
@@ -51,7 +49,6 @@ pagination.on('beforeMove', loadMoreTrendingFilms);
 
 export async function loadMoreTrendingFilms(e) {
   const currentPage = e.page;
-  qwePage=await e.page;
   console.log('currentPage', currentPage)
   Loading.hourglass();
   try {
@@ -64,7 +61,7 @@ export async function loadMoreTrendingFilms(e) {
     const { genres } = await fetchGenres();
     // console.log('genres ', genres);
     if (total_results > 0) {
-      gallery.innerHTML = await render.galleryMarkupСreation(results, genres);
+      gallery.innerHTML =  render.galleryMarkupСreation(results, genres);
       return;
     }
   } catch (err) {

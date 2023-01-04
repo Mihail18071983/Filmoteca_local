@@ -6,6 +6,8 @@ import * as tuiPagination from '../pagination/pagination';
 
 export const movieApiService = new MovieApiService();
 
+
+
 console.log(movieApiService.page)
 
 const refs = {
@@ -39,7 +41,7 @@ export async function handleInputSearchMovie(e) {
   }
   movieApiService.request = searchValue;
 
-  const response = await movieApiService.getMovie();
+  const response = await movieApiService.getMovie(tuiPagination.page);
   const results = response.results;
   console.log(results.length);
 
