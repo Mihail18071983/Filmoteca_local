@@ -3,12 +3,9 @@ import MovieApiService from './getAllMovieApi';
 import { galleryMarkupСreation } from '../showTrending/renderTrending';
 import { fetchGenres } from '../fetchGenres';
 import * as tuiPagination from '../pagination/pagination';
+import { setVanillaTiltAnimation } from '../vanilla';
 
 export const movieApiService = new MovieApiService();
-
-
-
-console.log(movieApiService.page)
 
 const refs = {
   searchMovie: document.querySelector('.searchForm'),
@@ -28,7 +25,6 @@ function handleInputSearchCondition(e) {
       'input',
       handleInputSearchCondition
     );
-    // console.log(e);
   }
 }
 
@@ -43,37 +39,69 @@ export async function handleInputSearchMovie(e) {
 
   const response = await movieApiService.getMovie(tuiPagination.page);
   const results = response.results;
-  console.log(results.length);
 
-  tuiPagination.pagination.off('beforeMove', tuiPagination.loadMoreTrendingFilms);
-  tuiPagination.pagination.off('beforeMove', tuiPagination.loadMoreFilmsByQuery);
+  tuiPagination.pagination.off(
+    'beforeMove',
+    tuiPagination.loadMoreTrendingFilms
+  );
+  tuiPagination.pagination.off(
+    'beforeMove',
+    tuiPagination.loadMoreFilmsByQuery
+  );
   tuiPagination.pagination.on('beforeMove', tuiPagination.loadMoreFilmsByQuery);
   tuiPagination.pagination.reset(movieApiService.totalResults);
-  
-  
-
-  // console.log(movieApiService.request);
   const { genres } = await fetchGenres();
-  // console.log(genres);
 
-  if (results.length === 0) {
-    console.log(results);
-    Notify.info(
-      'Search result not successful. Enter the correct movie name and',
-      {
-        position: 'center-top',
-        distance: '150px',
-        width: '394px',
-        fontSize: '14px',
-      }
-    );
-    return;
+  if (movieApiService.totalResults < 20) {
+    tuiPagination.paginationCont.classList.add('tui-pagination--hidden');
+  } else {
+    tuiPagination.paginationCont.classList.remove('tui-pagination--hidden');
   }
 
+  if (results.length === 0 && window.screen.width > 511) {
+    Notify.info('Search result not successful. Enter the correct movie name', {
+      position: 'center-top',
+      distance: '147px',
+      width: '250px',
+      fontSize: '14px',
+      timeout: 1500,
+      showOnlyTheLastOne: true,
+      backOverlay: false,
+      info: {
+        background: '#ff6b01',
+        textColor: '#fff',
+        childClassName: 'notiflix-notify-info',
+        notiflixIconColor: 'rgba(0,0,0,0.2)',
+        fontAwesomeClassName: 'fas fa-info-circle',
+        fontAwesomeIconColor: 'rgba(0,0,0,0.2)',
+        backOverlayColor: 'rgba(38,192,211,0.2)',
+      },
+    });
+    return;
+  } else if (results.length === 0) {
+    Notify.info('Search result not successful. Enter the correct movie name', {
+      position: 'right-top',
+      width: '250px',
+      fontSize: '14px',
+      timeout: 1500,
+      showOnlyTheLastOne: true,
+      backOverlay: false,
+      info: {
+        background: '#ff6b01',
+        textColor: '#fff',
+        childClassName: 'notiflix-notify-info',
+        notiflixIconColor: 'rgba(0,0,0,0.2)',
+        fontAwesomeClassName: 'fas fa-info-circle',
+        fontAwesomeIconColor: 'rgba(0,0,0,0.2)',
+        backOverlayColor: 'rgba(38,192,211,0.2)',
+      },
+    });
+    return;
+  }
   clearRender();
-  // console.log(movieApiService);
-  // console.log(results);
+
   refs.gallery.innerHTML = galleryMarkupСreation(results, genres);
+  setVanillaTiltAnimation();
 }
 
 function clearRender() {

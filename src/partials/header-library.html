@@ -1,28 +1,44 @@
 <header class="header" id="top">
-  <div class="container">
-    <div class="header-wrap">
-      <a class="main-logo" href="/src/index.html">
-        <svg class="main-logo_icon" width="24px" height="24px">
-          <use href="/src/images/svg/symbol-defs.svg#icon-film"></use>
-        </svg>
-        <span class="main-logo_text">Filmoteka</span>
-      </a>
-      <nav class="header-nav">
-        <ul class="header-nav_list">
-          <li><a class="header-nav_home" href="/src/index.html">Home</a></li>
-          <li>
-            <a class="header-nav_libr link-current" href="/src/my-library.html">my library</a>
-          </li>
+  <div class="header-library__background">
+    <div class="container header__container">
+      <nav class="navigation">
+        <a class="navigation__logo" href="./index.html">
+          <svg width="24" height="24">
+            <use href="./images/svg/symbol-defs.svg#icon-film">
+              <span id="hiddenOnMobile">Filmoteka</span>
+            </use>
+          </svg>
+        </a>
+        <ul class="navigation__list">
         </ul>
-        <button class="auth_btn header-nav_log">log in</button>
-        <button class="logOutBtn header-nav_log visually-hidden" id="logOutBtn">
-          log out
-        </button>
       </nav>
+      <ul class="header__btn-wrap">
+        <li>
+          <button class="header_btn-watched current-btn" type="button">
+            Watched
+          </button>
+        </li>
+        <li>
+          <button class="header_btn-queue" type="button">Queue</button>
+        </li>
+      </ul>
+      <div class="user">
+        <div class="user__box"></div>
+
+        <button class="filmoteca-btn filmoteca-btn--auth" type="submit" id="signInModalOpen" data-signInModal-open>
+          <svg class="filmoteca-btn--auth-icon" width="18" height="18">
+            <use href="./images/svg/symbol-defs.svg#enter"></use>
+          </svg>
+          <span class="filmoteca-btn__text">Log in / Sign Up</span>
+        </button>
+
+        <button class="filmoteca-btn filmoteca-btn--auth visually-hidden" type="submit" id="logoutBtn">
+          <svg class="filmoteca-btn--auth-icon" width="18" height="18">
+            <use href="./images/svg/symbol-defs.svg#exit"></use>
+          </svg>
+          <span class="filmoteca-btn__text">Log Out</span>
+        </button>
+      </div>
     </div>
-    <ul class="header_btn-wrap">
-      <li class="header_btn-watched current-btn"><a href="">Watched</a></li>
-      <li class="header_btn-queue simple-btn"><a href="">queue</a></li>
-    </ul>
   </div>
 </header>

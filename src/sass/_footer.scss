@@ -1,13 +1,14 @@
-.list {
-  list-style: none;
-}
+@import './utils/mixins';
 
-.link {
-  text-decoration: none;
-}
-
-.footer {
+footer {
   background-color: #f7f7f7;
+  padding-top: 29px;
+  padding-bottom: 29px;
+
+  @include tab {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
 }
 
 .container__footer {
@@ -15,13 +16,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 29px;
-  padding-bottom: 29px;
   height: 100%;
 
-  @media screen and (min-width: 768px) {
-    padding-top: 30px;
-    padding-bottom: 30px;
+  @include tab {
     flex-direction: row;
   }
 }
@@ -36,7 +33,7 @@
     text-decoration: underline;
   }
 
-  @media screen and (min-width: 768px) {
+  @include tab {
     font-size: 16px;
     line-height: 1.19;
   }
@@ -47,7 +44,7 @@
   align-items: center;
   margin-top: 10px;
 
-  @media screen and (min-width: 768px) {
+  @include tab {
     margin-top: 0;
   }
 }
@@ -72,4 +69,9 @@
   margin-left: 10px;
   margin-right: 10px;
   animation: heartbeat 1.5s infinite;
+}
+
+.modal-link:hover,
+.modal-link:focus{
+  color: $accent-color;
 }

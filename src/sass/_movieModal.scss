@@ -1,12 +1,12 @@
-@import './backdrop';
+@import 'backdrop';
 
 .movieModal {
   position: absolute;
   display: flex;
   font-weight: 500;
-  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
+  margin-top: 20px;
   width: 280px;
   min-height: 904px;
   padding: 48px 20px;
@@ -23,10 +23,13 @@
   }
 
   @media screen and (min-width: 1280px) {
+    top: 50%;
+    transform: translate(-50%, -50%);
     gap: calc($gap / 2);
     width: 806px;
     min-height: 558px;
-    padding: 40px 12px;
+    padding: 40px 20px;
+    margin-top: 0px;
   }
 }
 
@@ -59,17 +62,21 @@
 }
 
 .movieModal__image {
+  object-fit: cover;
   width: 240px;
   max-height: 357px;
+  margin-bottom: 20px;
+  border-radius: 5px;
 
   @media screen and (min-width: 768px) {
     width: 264px;
     max-height: 374px;
+    margin-bottom: 0px;
   }
 
   @media screen and (min-width: 1280px) {
     width: 375px;
-    max-height: 478px;
+    max-height: 550px;
   }
 }
 
@@ -144,5 +151,5 @@
 
 .movieModal__btns {
   display: flex;
-  gap: calc($gap / 2);
+  justify-content: space-between;
 }

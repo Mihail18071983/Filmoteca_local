@@ -8,7 +8,6 @@ export default class MovieApiService {
     this.userRequest = '';
     this.page = 1;
     this.totalResults = 0;
-    // this.perPage = 21;
   }
 
   async getMovie(_page) {
@@ -16,15 +15,10 @@ export default class MovieApiService {
       `${URL}search/movie?api_key=${API_KEY}&query=${this.userRequest}&page=${_page}`
     );
 
-    // this.incrementPage();
 
     await this.getTotalRes(data);
-    console.log(data);
     return data;
   }
-  // incrementPage() {
-  //   this.page += 1;
-  // }
 
   resetPage() {
     this.page = 1;

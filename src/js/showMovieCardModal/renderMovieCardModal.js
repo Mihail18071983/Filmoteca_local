@@ -1,6 +1,3 @@
-import { Loading } from 'notiflix/build/notiflix-loading-aio';
-import { Report } from 'notiflix/build/notiflix-report-aio';
-
 const refs = {
   movieModal: document.querySelector('.movieModal__info'),
 };
@@ -9,8 +6,18 @@ const genresTxt = genres => {
   return genres.map(({ name }) => name).join(', ');
 };
 
+function addStubPicture(urlTemplate, poster_path, urlStub) {
+  if (poster_path !== null) {
+    return urlTemplate + poster_path;
+  } else {
+    return urlStub;
+  }
+}
+
 export const renderModalMarkup = ({
+  id,
   poster_path,
+  title,
   original_title,
   vote_average,
   vote_count,
@@ -18,12 +25,19 @@ export const renderModalMarkup = ({
   genres,
   overview,
 }) => {
+  const urlStub =
+    'http://www.posterterritory.com/wp-content/uploads/2022/02/Nikodem-Pre%CC%A8gowski-717x1024.jpeg';
+  const urlTemplate = 'https://image.tmdb.org/t/p/w500';
   const markup = `
-    <img class="movieModal__image" src="https://image.tmdb.org/t/p/w500${poster_path}" alt="movieImg" />
+    <img class="movieModal__image" src="${addStubPicture(
+      urlTemplate,
+      poster_path,
+      urlStub
+    )}" />
       <div class="movieModal__wraper">
         <table class="movieModal__table">
           <caption class="movieModal__caption">
-            ${original_title}
+            ${title}
           </caption>
           <tbody>
             <tr>
@@ -64,11 +78,11 @@ export const renderModalMarkup = ({
           </p>
         </div>
         <div class="movieModal__btns">
-          <button class="filmoteca-btn filmoteca-btn--primary" type="button" data-modal-close>
-            add to Watched
+          <button class="filmoteca-btn filmoteca-btn--secondary" type="button" data-id="${id}" id="addToWatchedBtn">
+            Add to watched
           </button>
-          <button class="filmoteca-btn filmoteca-btn--secondary" type="button" data-modal-close>
-            add to queue
+          <button class="filmoteca-btn filmoteca-btn--secondary" type="button" data-id="${id}" id="addToQueueBtn">
+            Add to queue
           </button>
         </div>
       </div>
